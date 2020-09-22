@@ -1,11 +1,12 @@
 Crafty.init(900,500, document.getElementById('game'));
-      Crafty.defineScene("game", function() {
+      Crafty.defineScene("level1, function() {
       var player = Crafty.e('2D, DOM, Color, Twoway, Gravity, Collision')
         .attr({x: 0, y: 0, w: 40, h: 40})
         .color("#F00")
         .twoway(150)
         .gravity("Floor")
-        .onHit('Goal', function(hitDatas){Crafty.enterScene("end");});
+        .onHit('Goal', function(hitDatas){Crafty.enterScene("end");})
+	.gravityConst(750);
         
       Crafty.e('Floor, 2D, Canvas, Color')
         .attr({x: 0, y: 250, w: 250, h: 10})
@@ -27,7 +28,7 @@ Crafty.init(900,500, document.getElementById('game'));
       });
       
       
-      var dogvar=1
+      var dogvar=0
       coolman.bind('UpdateFrame', function(){
         coolman.y+=dogvar;
         if(coolman.y>300){
@@ -52,7 +53,7 @@ Crafty.init(900,500, document.getElementById('game'));
           .attr({x: 0, y: 0, w: 40, h: 40})
           .color('red')
           .bind('Click', function(MouseEvent){
-            Crafty.enterScene("game");
+            Crafty.enterScene("level1");
           });
       });
       
