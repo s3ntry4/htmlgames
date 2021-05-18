@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<title>random numbers idk</title>
+<a href="">Rerun</a>
+
+
+<script>
+    var justdoit=confirm("generate 2000 random numbers?");
+    if(!justdoit){
+    var maxnum=prompt("maximum");
+    var amount=prompt("amount");
+    var n;
+    
+    for(n=0; n<amount; n++){
+        document.write(Math.floor(Math.random() * (maxnum-1)));
+    }
+    } else {
+        for(n=0; n<2000; n++){
+        document.write(Math.floor(Math.random() * (10)));
+    }
+    }
+    document.write("<br>")
+</script>
