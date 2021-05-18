@@ -1,0 +1,115 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Jump Over Easy</title>
+<body>
+  <h1>Jump Over Easy</h1>
+    <h3><a href="">Play Again</a></h3>
+    <h3><a href="/">Home</a></h3>
+    <h3><a href="/jumpover.html">Normal Mode</a></h3>
+  <svg id="stage" width="320" height="300">
+      
+      <rect x='0' y='0' width="320" height="300" stroke="black" fill="white" stroke-width="3"/>
+      
+  <rect id="player" x='50' y='150' width="30" height="30" style="fill:rgb(0,200,255);stroke-width:3;stroke:rgb(0,0,0)"/>
+
+  <rect id="ground" x='10' y='200' width="300" height="30" stroke="black" fill="gray" stroke-width="3"/>
+  
+  
+
+  <rect id="redsquare" x="320" y="167" fill="red" width="30" height="30" stroke="black" stroke-width="3"/>
+
+
+  </svg>
+  <h3>Directions: Press any key or tap the screen to jump, and avoid the red square.</h3>
+  <h3 id="score">Score: 0</h3>
+    <script>
+
+
+
+
+
+var square = document.getElementById("player");
+var obstacle = document.getElementById("redsquare");
+var stage = document.getElementById("stage")
+var yvel = 0;
+var py = 0;
+var ox = 0;
+var onGround = false;
+var playing = true;
+var score = 0;
+
+function intersectRect(r1, r2) {
+    var r1 = r1.getBoundingClientRect();
+    var r2 = r2.getBoundingClientRect();
+  return !(r2.left > r1.right || 
+           r2.right < r1.left || 
+           r2.top > r1.bottom ||
+           r2.bottom < r1.top);
+}
+
+
+function move(object, xMove, yMove) {
+  var objpos = parseInt(object.getAttribute('x')) + xMove;
+  object.setAttribute('x', objpos)
+  var objpos = parseInt(object.getAttribute('y')) + yMove;
+  object.setAttribute('y', objpos)
+}
+function setpos(object, xPos, yPos) {
+  object.setAttribute('x', xPos)
+  object.setAttribute('y', yPos)
+}
+function getplayer(){
+  py = square.getAttribute('y');
+  ox = obstacle.getAttribute('x');
+  console.log(ox);
+}
+document.addEventListener('keydown', e => {
+    if(onGround){yvel=-6- score / 1920;}
+})
+
+document.addEventListener('mousedown', e => {
+    if(onGround){yvel=-6- score / 1920;}
+})
+
+
+function gameloop(){
+  if(playing){
+    score++;
+    move(obstacle, -4 - score / 800, 0)
+    if(ox < -50){
+        setpos(obstacle, 320, 167)
+    }
+    document.getElementById("score").innerHTML = "Score: " + Math.round(score * 0.7)
+  move(square, 0, yvel);
+  getplayer();
+  if(py > 167){
+    yvel = 0;
+    onGround = true;
+    setpos(square, 50, 168)
+  } else {
+    onGround = false;
+    yvel+=0.3 + score / 9600;
+  }
+
+if(intersectRect(square, obstacle)){
+  alert("You lost with a score of " + Math.round(score * 0.7) + "! Press the \"Play Again\" link to play again!");
+    playing = false;
+    stage.pauseAnimations();
+}
+
+  }
+}
+
+setInterval(function(){gameloop()}, 20);
+
+
+
+
+
+    </script>
+</body>
+</html>
