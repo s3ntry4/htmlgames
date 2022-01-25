@@ -1,6 +1,4 @@
 # htmlgames
-yay
 
-by me
-
-=]
+why are you here
+really what are you doing with your life
